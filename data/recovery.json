@@ -1,0 +1,75 @@
+{
+  "format": "ytt-editor-project",
+  "version": 1,
+  "tracks": [
+    {
+      "name": "트랙 1",
+      "cues": [
+        {
+          "id": 1,
+          "start": 2931,
+          "end": 4931,
+          "text": "테스트",
+          "style": null,
+          "layer": 0,
+          "motionPath": {
+            "start": 0,
+            "end": 2000,
+            "points": [
+              [
+                0,
+                66.56867906306796
+              ],
+              [
+                47.46521958604689,
+                78.92204592507495
+              ],
+              [
+                60,
+                20
+              ],
+              [
+                100,
+                32.169263805182915
+              ]
+            ],
+            "easing": "linear"
+          },
+          "keyframes": {
+            "opacity": [
+              {
+                "time": 329,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 1202,
+                "value": 100,
+                "easing": "linear"
+              }
+            ],
+            "color": [
+              {
+                "time": 343,
+                "value": "#FEFEFE",
+                "easing": "linear"
+              },
+              {
+                "time": 1573,
+                "value": "#FF0000",
+                "easing": "linear"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "트랙 2",
+      "cues": []
+    }
+  ],
+  "originalYtt": null,
+  "videoName": "에컴8 My blue sky home 대사.mp4",
+  "quality": "high"
+}
