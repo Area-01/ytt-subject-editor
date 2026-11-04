@@ -3,8 +3,10 @@ import { exportYtt } from '/src/ytt-export.js';
 import { parseYtt, setAttributes, getTextRuns, replaceTextRuns } from '/src/ytt-document.js';
 import {applyEdits} from '/src/ytt-preserve.js';
 import { compileAnimatedYtt, animatedStateAt } from '/src/animated-ytt.js';
+import {evaluateKeyframes} from '/src/effects.js';
 import { encodeProject, decodeProject } from '/src/project.js';
 import { setUnitEffect, parseUnitTargets, splitEffectUnits } from '/src/unit-effects.js';
+import {planTextSelection,applySelectionFrames} from '/src/text-selection.js';
 import {makePreset,applyPreset,parsePresetLibrary,stringifyPresetLibrary} from '/src/presets.js';
 import {createPathEditor} from '/path-editor.js';
 import {createBezierEditor} from '/bezier-editor.js';
@@ -26,8 +28,11 @@ const video = $('video');
 const snapControl=document.createElement('label'); snapControl.innerHTML='스냅 <select id="snapMode"><option value="cues">자막 경계</option><option value="frames">프레임</option><option value="both">경계 + 프레임</option><option value="none">끄기</option></select>'; $('timelineInfo').before(snapControl);
 const textRunPanel=document.createElement('div'); textRunPanel.id='textRunPanel'; $('cueText').parentElement.after(textRunPanel);
 const duplicateCue=document.createElement('button'), deleteCue=document.createElement('button');
-duplicateCue.type=deleteCue.type='button'; duplicateCue.textContent='자막 복제'; deleteCue.textContent='자막 삭제'; $('apply').after(duplicateCue,deleteCue);
+duplicateCue.type=deleteCue.type='button'; duplicateCue.textContent='자막 복제'; deleteCue.textContent='선택 자막 삭제'; deleteCue.title='선택 자막 삭제 (Delete)'; $('apply').after(duplicateCue); $('addCue').after(deleteCue);deleteCue.disabled=true;
+const copyCueButton=document.createElement('button'),pasteCueButton=document.createElement('button');
+copyCueButton.type=pasteCueButton.type='button';copyCueButton.textContent='복사';pasteCueButton.textContent='붙여넣기';copyCueButton.title='선택 자막 복사 (Ctrl+C)';pasteCueButton.title='현재 위치에 자막 붙여넣기 (Ctrl+V)';copyCueButton.disabled=true;pasteCueButton.disabled=true;deleteCue.before(copyCueButton,pasteCueButton);
 let tracks = [{name:'트랙 1', cues:[]}], selected = null, originalYtt = null, mediaUrl = null;
+let cueClipboard=null, originalSessionId=0, nextOriginalSessionId=0;
 let nextId = 0, videoName = null, recoveryReady = false, recoveryDirty = false, saveTimer = null, saveChain = Promise.resolve();
 let editRevision=0, savedRevision=0, recoveryFailed=false;
 const recoveryStatus=document.createElement('span'); recoveryStatus.className='recovery-status'; recoveryStatus.setAttribute('role','status'); recoveryStatus.textContent='자동 저장 준비 중'; $('notice').before(recoveryStatus);
@@ -36,16 +41,17 @@ let timelineIndexes=[], timelineLanes=[], lastTimelineScroll=0, scrollFrame=0, p
 let waveformGeneration=0, waveformPeaks=null;
 const waveformSurface=document.createElement('canvas');
 let effectControls=null, positionDrag=null;
+let textSelection=null;
 const positionHandle=document.createElement('div'); positionHandle.className='preview-position-handle'; positionHandle.hidden=true; positionHandle.title='선택한 자막을 끌어 위치 이동'; $('stage').append(positionHandle);
 const editHistory=new EditHistory(50);
 const undoButton=document.createElement('button'), redoButton=document.createElement('button');
 undoButton.textContent='실행 취소'; undoButton.title='Ctrl+Z'; redoButton.textContent='다시 실행'; redoButton.title='Ctrl+Shift+Z';
 $('export').before(undoButton,redoButton);
-function historySnapshot() { return {tracks,originalYtt,selectedId:selected?.id ?? null,activeTrack}; }
+function historySnapshot() { return {tracks,originalYtt,originalSessionId,selectedId:selected?.id ?? null,activeTrack}; }
 function refreshHistoryButtons() { undoButton.disabled=!editHistory.canUndo; redoButton.disabled=!editHistory.canRedo; }
 function recordEdit() { editHistory.record(historySnapshot()); refreshHistoryButtons(); }
 function restoreHistory(state) {
-  closePathEditor(); tracks=state.tracks; originalYtt=state.originalYtt; activeTrack=Math.min(state.activeTrack,tracks.length-1);
+  closePathEditor(); tracks=state.tracks; originalYtt=state.originalYtt; originalSessionId=state.originalSessionId; activeTrack=Math.min(state.activeTrack,tracks.length-1);
   selected=tracks.flatMap(track=>track.cues).find(cue=>cue.id===state.selectedId) ?? null;
   nextId=tracks.reduce((max,track)=>track.cues.reduce((n,cue)=>Math.max(n,cue.id),max),nextId);
   previewCache.clear(); showProperties(); render(); markDirty(); refreshHistoryButtons();
@@ -54,8 +60,12 @@ undoButton.onclick=()=>{const state=editHistory.undo(historySnapshot()); if(stat
 redoButton.onclick=()=>{const state=editHistory.redo(historySnapshot()); if(state){restoreHistory(state);say('다시 실행했습니다.');}};
 document.addEventListener('keydown',event=>{
   const element=event.target;
-  if (event.defaultPrevented || event.altKey || !(event.ctrlKey || event.metaKey) || element?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(element?.tagName ?? '')) return;
+  if (event.defaultPrevented || element?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(element?.tagName ?? '')) return;
+  if(event.key==='Delete' && !element?.closest?.('.effect-controls') && !event.repeat && !event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey && selected){event.preventDefault();deleteCue.click();return;}
+  if (event.altKey || !(event.ctrlKey || event.metaKey)) return;
   const key=event.key.toLowerCase();
+  if (!event.shiftKey && key==='c' && selected && window.getSelection()?.isCollapsed!==false) {event.preventDefault();copySelectedCue();return;}
+  if (!event.shiftKey && key==='v' && cueClipboard) {event.preventDefault();pasteCopiedCue();return;}
   if (key==='z' && !event.shiftKey) { event.preventDefault(); undoButton.click(); }
   else if (key==='y' || (key==='z' && event.shiftKey)) { event.preventDefault(); redoButton.click(); }
 });
@@ -243,7 +253,7 @@ function restoreProject(project) {
     }
     for (const cue of project.tracks.flatMap(t=>t.cues)) if (cue.originalIndex!=null && cue.styleOverride) setCueStyle(project.originalYtt,cue.originalIndex,cue.styleOverride);
   }
-  tracks=project.tracks; originalYtt=project.originalYtt; videoName=project.videoName; $('quality').value=project.quality;
+  tracks=project.tracks; originalYtt=project.originalYtt; originalSessionId=++nextOriginalSessionId; videoName=project.videoName; $('quality').value=project.quality;
   editHistory.clear(); refreshHistoryButtons();
   activeTrack=0;
   nextId=tracks.reduce((max,track)=>track.cues.reduce((n,cue)=>Math.max(n,cue.id),max),0); selected=null; previewCache.clear();
@@ -394,6 +404,8 @@ function renderPlayback() {
 
 function showProperties() {
   $('empty').hidden = !!selected; $('properties').hidden = !selected;
+  deleteCue.disabled=!selected;
+  copyCueButton.disabled=!selected;
   effectControls?.refresh();
   positionHandle.dataset.enabled=String(!!selected && canAnimateSelected() && !selected.style);
   if (pathCue && pathCue!==selected) closePathEditor();
@@ -453,9 +465,11 @@ positionHandle.addEventListener('pointerdown',event=>{
   try {
     const cue=selected,stage=$('stage'),scale=Math.min(stage.clientWidth/(video.videoWidth || 16),stage.clientHeight/(video.videoHeight || 9));
     const elapsed=Math.max(0,Math.min(cue.end-cue.start,Math.round(video.currentTime*1000-cue.start)));
-    const state=animatedStateAt(prepareCue(cue),elapsed);
+    const state=animatedStateAt(prepareCue(cue),elapsed),plan=effectControls?.getTarget()==='selection' ? currentTextSelection(cue) : null;
+    const part=plan?.units[plan.indices[0]],delay=part?.delays?.position ?? part?.delayMs ?? 0;
+    const position=part ? (part.keyframes?.position?.length ? evaluateKeyframes(part.keyframes.position,elapsed-delay) : [0,0]) : state.position;
     const spans=[...$('captions').querySelectorAll('[data-cue-id]')].filter(element=>element.dataset.cueId===String(cue.id));
-    positionDrag={cue,pointer:event.pointerId,x:event.clientX,y:event.clientY,left:parseFloat(positionHandle.style.left),top:parseFloat(positionHandle.style.top),width:(video.videoWidth || 16)*scale,height:(video.videoHeight || 9)*scale,position:state.position,elapsed,spans,dx:0,dy:0};
+    positionDrag={cue,plan,pointer:event.pointerId,x:event.clientX,y:event.clientY,left:parseFloat(positionHandle.style.left),top:parseFloat(positionHandle.style.top),width:(video.videoWidth || 16)*scale,height:(video.videoHeight || 9)*scale,position,elapsed,spans,dx:0,dy:0};
     event.preventDefault();positionHandle.setPointerCapture(event.pointerId);if(!video.paused)video.pause();
   } catch(error) {positionDrag=null;say(`위치 이동을 시작할 수 없습니다: ${error.message}`);}
 });
@@ -463,7 +477,7 @@ positionHandle.addEventListener('pointermove',event=>{
   if(!positionDrag || positionDrag.pointer!==event.pointerId)return;
   const drag=positionDrag;drag.dx=event.clientX-drag.x;drag.dy=event.clientY-drag.y;
   positionHandle.style.left=`${drag.left+drag.dx}px`;positionHandle.style.top=`${drag.top+drag.dy}px`;
-  for(const span of drag.spans)span.style.translate=`${drag.dx}px ${drag.dy}px`;
+  if(!drag.plan)for(const span of drag.spans)span.style.translate=`${drag.dx}px ${drag.dy}px`;
 });
 function finishPositionDrag(event,cancelled) {
   if(!positionDrag || positionDrag.pointer!==event.pointerId)return;
@@ -471,17 +485,17 @@ function finishPositionDrag(event,cancelled) {
   for(const span of drag.spans)span.style.translate='';
   if(cancelled || selected!==drag.cue || Math.hypot(drag.dx,drag.dy)<2){renderPlayback();return;}
   try {
-    const cue=drag.cue,delay=cue.delays?.position ?? cue.defaultDelayMs ?? 0,keyTime=drag.elapsed-delay;
+    const cue=drag.cue,first=drag.plan?.units[drag.plan.indices[0]],delay=first ? (first.delays?.position ?? first.delayMs ?? 0) : (cue.delays?.position ?? cue.defaultDelayMs ?? 0),keyTime=drag.elapsed-delay;
     if(keyTime<0)throw new Error('위치 시차보다 앞에서는 위치를 추가할 수 없습니다.');
-    const position=[drag.position[0]+drag.dx/(drag.width*0.96)*100,drag.position[1]+drag.dy/(drag.height*0.96)*100].map(value=>Math.max(0,Math.min(100,Math.round(value))));
-    const frames=structuredClone(cue.keyframes?.position ?? []), existing=frames.find(frame=>frame.time===keyTime);
+    const position=[drag.position[0]+drag.dx/(drag.width*0.96)*100,drag.position[1]+drag.dy/(drag.height*0.96)*100].map(value=>drag.plan ? Math.round(value) : Math.max(0,Math.min(100,Math.round(value))));
+    const previous=structuredClone(first ? (first.keyframes?.position ?? []) : (cue.keyframes?.position ?? [])),frames=structuredClone(previous), existing=frames.find(frame=>frame.time===keyTime);
     if(existing)existing.value=position;else frames.push({time:keyTime,value:position,easing:'linear'});
     frames.sort((a,b)=>a.time-b.time);
     let appearance=cue.appearance;
     if(cue.originalIndex==null && !hasGeneratedEffect(cue))appearance={backgroundOpacity:191};
-    const next={...cue,appearance,keyframes:{...cue.keyframes,position:frames}};
+    const next=drag.plan ? {...cue,appearance,units:applySelectionFrames(drag.plan,'position',previous,frames),unitPlan:null} : {...cue,appearance,keyframes:{...cue.keyframes,position:frames}};
     compileAnimatedYtt([prepareCue(next)],{quality:$('quality').value});
-    recordEdit();cue.appearance=next.appearance;cue.keyframes=next.keyframes;previewCache.delete(cue.id);showProperties();render();markDirty();say('자막 위치를 변경했습니다.');
+    recordEdit();cue.appearance=next.appearance;cue.keyframes=next.keyframes;cue.units=next.units;cue.unitPlan=next.unitPlan;previewCache.delete(cue.id);showProperties();render();markDirty();say(drag.plan?'선택한 글자의 위치를 변경했습니다.':'자막 위치를 변경했습니다.');
   } catch(error){say(`위치 변경 실패: ${error.message}`);renderPlayback();}
 }
 positionHandle.addEventListener('pointerup',event=>finishPositionDrag(event,false));
@@ -592,7 +606,7 @@ $('subtitleFile').addEventListener('change', async event => {
     else throw new Error('지원하지 않는 자막 형식입니다.');
     const groups = new Map();
     for (const cue of result.cues) { const layer = cue.layer ?? 0; if (!groups.has(layer)) groups.set(layer,[]); groups.get(layer).push({...cue,id:++nextId}); }
-    recordEdit(); originalYtt=nextOriginalYtt;
+    recordEdit(); originalYtt=nextOriginalYtt; originalSessionId=++nextOriginalSessionId;
     tracks = [...groups].map(([layer,cues]) => ({name:`트랙 ${layer+1}`,cues}));
     if (!tracks.length) tracks = [{name:'트랙 1',cues:[]}];
     activeTrack=0; selected = null; showProperties(); render(); markDirty(); say(result.warnings.join(' ') || '자막을 가져왔습니다.');
@@ -607,6 +621,43 @@ $('addCue').onclick = () => {
   const start = Math.round(video.currentTime * 1000); selected = {id:++nextId,start,end:start+2000,text:'새 자막',style:null,layer:activeTrack};
   tracks[activeTrack].cues.push(selected); showProperties(); render(); markDirty();
 };
+function copySelectedCue() {
+  if(!selected)return;
+  try {
+    const cue=structuredClone(selected);
+    let original=null;
+    if(isOriginalCue()) {
+      const doc=parseYtt(originalYtt),node=doc.cues[cue.originalIndex];
+      if(!node)throw new Error('원본 자막을 찾을 수 없습니다.');
+      if(doc.elements.some(element=>element.start>=node.start && element.end<=node.end && (element.attrs.id || element.attrs['xml:id']))) throw new Error('고유 ID가 있는 원본 자막은 안전하게 복사할 수 없습니다.');
+      original={xml:originalYtt.slice(node.start,node.end),session:originalSessionId};
+    }
+    cueClipboard={cue,original};pasteCueButton.disabled=false;say('자막을 복사했습니다. Ctrl+V로 재생 위치에 붙여넣으세요.');
+  } catch(error){say(`자막 복사 실패: ${error.message}`);}
+}
+function pasteCopiedCue() {
+  if(!cueClipboard)return;
+  try {
+    const track=tracks[activeTrack];if(!track || track.locked)throw new Error('잠긴 트랙에는 자막을 붙여넣을 수 없습니다.');
+    const copy=structuredClone(cueClipboard.cue),duration=copy.end-copy.start;
+    const seconds=Number.isFinite(video.currentTime)?video.currentTime:0,start=Math.round(seconds*1000);
+    if(!Number.isSafeInteger(start) || start<0 || !Number.isSafeInteger(duration) || duration<=0 || !Number.isSafeInteger(start+duration))throw new Error('붙여넣을 자막의 시간이 올바르지 않습니다.');
+    copy.id=nextId+1;copy.start=start;copy.end=start+duration;copy.layer=activeTrack;
+    let changedSource=originalYtt;
+    if(cueClipboard.original) {
+      if(!originalYtt || cueClipboard.original.session!==originalSessionId)throw new Error('원본 YTT 자막은 복사한 프로젝트 안에서만 붙여넣을 수 있습니다.');
+      const doc=parseYtt(originalYtt),body=doc.root.children.find(node=>node.name==='body');
+      if(!body)throw new Error('원본 YTT 본문을 찾을 수 없습니다.');
+      copy.originalIndex=doc.cues.length;
+      if(body.end===body.openEnd) {
+        const tag=originalYtt.slice(body.start,body.openEnd).replace(/\/\s*>$/,'>');
+        changedSource=applyEdits(originalYtt,[{start:body.start,end:body.end,text:`${tag}\n${cueClipboard.original.xml}\n</body>`}]);
+      } else changedSource=applyEdits(originalYtt,[{start:body.contentEnd,end:body.contentEnd,text:`\n${cueClipboard.original.xml}\n`}]);
+    } else {delete copy.originalIndex;delete copy.originalStart;delete copy.originalEnd;delete copy.textEdits;delete copy.styleOverride;}
+    recordEdit();originalYtt=changedSource;nextId=copy.id;track.cues.push(copy);selected=copy;textSelection=null;previewCache.clear();showProperties();render();markDirty();say('자막을 현재 재생 위치에 붙여넣었습니다.');
+  } catch(error){say(`자막 붙여넣기 실패: ${error.message}`);}
+}
+copyCueButton.onclick=copySelectedCue;pasteCueButton.onclick=pasteCopiedCue;
 duplicateCue.onclick=()=>{
   if (!selected) return;
   try {
@@ -923,7 +974,7 @@ function foldPanel(element,title) {
 const cueDetails=document.createElement('details');cueDetails.className='inspector-fold';
 const cueSummary=document.createElement('summary');cueSummary.textContent='자막 내용 · 시간';cueDetails.append(cueSummary);
 const properties=$('properties');properties.prepend(cueDetails);
-for(const node of [$('cueText').parentElement,textRunPanel,$('cueStart').parentElement,$('cueEnd').parentElement,$('apply'),duplicateCue,deleteCue,$('preserveInfo')])cueDetails.append(node);
+for(const node of [$('cueText').parentElement,textRunPanel,$('cueStart').parentElement,$('cueEnd').parentElement,$('apply'),duplicateCue,$('preserveInfo')])cueDetails.append(node);
 foldPanel(stylePanel,'글꼴 · 색상 · 배경');
 foldPanel(positionPanel,'고정 위치 · 기준점');
 foldPanel($('effectPanel'),'단위별 효과 · 고급 설정');
@@ -931,23 +982,43 @@ foldPanel(motionPanel,'곡선 이동 경로');
 foldPanel(presetPanel,'사용자 프리셋');
 foldPanel(storagePanel,'데이터 저장 위치');
 const comparisonPanel=document.querySelector('.comparison-panel');if(comparisonPanel)foldPanel(comparisonPanel,'화면 비교');
+function currentTextSelection(cue) {
+  if(!textSelection || textSelection.id!==cue.id || textSelection.text!==cue.text)return null;
+  return planTextSelection(cue,textSelection.start,textSelection.end,textSelection.mode);
+}
+function overviewTextPlan(cue,mode) {
+  if(!cue.text)return {units:[],indices:[]};
+  const selection=currentTextSelection(cue);
+  let units;
+  if(mode==='character')units=planTextSelection(cue,0,cue.text.length,'character').units;
+  else units=selection?.units ?? cue.units ?? [{text:cue.text}];
+  let offset=0;const indices=[];
+  units.forEach((unit,index)=>{const start=offset;offset+=unit.text.length;if(selection && start<selection.end && offset>selection.start)indices.push(index);});
+  return {units,indices};
+}
 effectControls=createEffectControls({
   parent:properties,getCue:()=>selected,getTime:()=>Math.round(video.currentTime*1000),isEditable:cue=>cue===selected && canAnimateSelected() && !cue.style,
+  getSelectionPlan:currentTextSelection,getOverviewPlan:overviewTextPlan,
+  setTextSelection:(cue,start,end,mode)=>{textSelection=cue ? {id:cue.id,text:cue.text,start,end,mode} : null;},
   getBaseState:(cue,unit,time)=>{
     const base=cue.originalIndex==null && !hasGeneratedEffect(cue) ? {...cue,appearance:{backgroundOpacity:191}} : cue;
     const state=animatedStateAt(prepareCue(base),time);
     if(unit==='all')return state;
-    const part=cue.units?.[Number(unit)];if(!part)throw new Error('편집할 글자 단위를 찾을 수 없습니다.');
+    const plan=unit==='selection'?currentTextSelection(cue):null;
+    const part=unit==='selection'?plan?.units[plan.indices[0]]:cue.units?.[Number(unit)];if(!part)throw new Error('편집할 글자 단위를 찾을 수 없습니다.');
     const {position,...otherFrames}=part.keyframes ?? {};
     return animatedStateAt({appearance:{...state,...part.appearance},keyframes:otherFrames,delays:part.delays,defaultDelayMs:part.delayMs},time);
   },
-  commitFrames:(cue,unit,property,frames)=>{
+  commitFrames:(cue,unit,property,frames,previous)=>{
     if(cue!==selected || !canAnimateSelected() || cue.style)throw new Error('이 자막은 효과를 편집할 수 없습니다.');
     if(unit==='all' && property==='position' && cue.motionPath)throw new Error('곡선 이동 경로를 먼저 제거하세요.');
     const next=structuredClone(cue);
     if(cue.originalIndex==null && !hasGeneratedEffect(cue) && frames.length)next.appearance={backgroundOpacity:191};
     if(unit==='all') {next.keyframes={...next.keyframes};if(frames.length)next.keyframes[property]=frames;else delete next.keyframes[property];}
-    else {
+    else if(unit==='selection') {
+      const plan=currentTextSelection(cue);if(!plan)throw new Error('효과를 적용할 글자 범위를 다시 선택하세요.');
+      next.units=applySelectionFrames(plan,property,previous,frames);next.unitPlan=null;
+    } else {
       const part=next.units?.[Number(unit)];if(!part)throw new Error('편집할 글자 단위를 찾을 수 없습니다.');
       part.keyframes={...part.keyframes};if(frames.length)part.keyframes[property]=frames;else {delete part.keyframes[property];if(part.delays)delete part.delays[property];}
       next.unitPlan=null;
@@ -957,6 +1028,10 @@ effectControls=createEffectControls({
   },
   seek:milliseconds=>{if(Number.isFinite(video.duration))video.currentTime=Math.max(0,Math.min(video.duration,milliseconds/1000));},notify:message=>say(message),
   openUnitSettings:()=>{const details=$('effectPanel').parentElement;details.open=true;$('effectScope').focus();details.scrollIntoView({block:'nearest'});}
+});
+$('cueText').addEventListener('select',()=>{
+  const input=$('cueText');if(!selected || input.value!==selected.text || input.selectionStart===input.selectionEnd)return;
+  try{effectControls.selectRange(selected,input.selectionStart,input.selectionEnd);}catch(error){say(`글자 선택 실패: ${error.message}`);}
 });
 new ResizeObserver(()=>{if(!dragging && !positionDrag)renderPlayback();}).observe($('stage'));
 render();

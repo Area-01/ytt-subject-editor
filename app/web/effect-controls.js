@@ -1,4 +1,5 @@
 import {evaluateKeyframes} from '/src/effects.js';
+import {createUnitOverview} from '/unit-overview.js';
 
 const properties=[['position','위치'],['size','크기'],['opacity','불투명도'],['color','글자색'],['backgroundColor','배경색'],['backgroundOpacity','배경 불투명도'],['edgeColor','윤곽선 색']];
 const colors=new Set(['color','backgroundColor','edgeColor']);
@@ -14,13 +15,20 @@ function parseValue(property,text) {
 }
 
 /** Keyframe rows operate on a single cue or one existing text unit. */
-export function createEffectControls({parent,getCue,getBaseState,getTime,commitFrames,seek,notify,isEditable,openUnitSettings}) {
+export function createEffectControls({parent,getCue,getBaseState,getTime,commitFrames,seek,notify,isEditable,openUnitSettings,getSelectionPlan,getOverviewPlan,setTextSelection}) {
   const panel=document.createElement('section'); panel.className='effect-controls';
   panel.innerHTML='<div class="effect-controls-head"><strong>효과 컨트롤</strong><span>현재 자막 기준</span></div><label class="effect-unit-label">편집 대상 <select class="effect-unit"></select><button type="button" class="unit-settings">단위 설정</button></label><p class="effect-instruction">행의 빈 곳을 클릭해 키프레임 추가 · ◆를 끌어 시간 이동 · 값을 바꿔 적용</p><div class="effect-ruler"><span>시작</span><span>자막 길이</span></div><div class="effect-rows"></div><div class="effect-actions"><button type="button" class="key-add">현재 위치에 ◆ 추가</button><button type="button" class="key-delete">선택 ◆ 삭제</button><output class="key-status">속성 행을 선택하세요.</output></div>';
+  const header=panel.querySelector('.effect-controls-head'), editor=document.createElement('div');editor.className='effect-editor';
+  while(header.nextSibling)editor.append(header.nextSibling);
+  const tabs=document.createElement('nav');tabs.className='effect-tabs';tabs.innerHTML='<button type="button" class="effect-tab active">효과 편집</button><button type="button" class="units-tab">글자별 타임라인</button>';
+  const selection=document.createElement('div');selection.className='text-selection';selection.innerHTML='<label>효과를 적용할 글자 드래그<textarea class="selection-text" rows="2" readonly aria-label="효과를 적용할 자막 글자 선택"></textarea></label><div><label>선택 범위 <select class="selection-mode"><option value="group">선택한 글자를 묶어서</option><option value="character">글자마다 따로</option></select></label><button type="button" class="selection-clear">선택 해제</button></div><small class="selection-info">글자를 선택하면 해당 부분에만 효과를 편집합니다.</small>';
+  const overviewHost=document.createElement('div');overviewHost.hidden=true;panel.append(tabs,selection,editor,overviewHost);
   parent.prepend(panel);
   const rows=panel.querySelector('.effect-rows'),unitChoice=panel.querySelector('.effect-unit'),status=panel.querySelector('.key-status');
-  let cueId=null,unit='all',property='opacity',selectedTime=null,drag=null; const expanded=new Set();
-  const getUnit=cue=>unit==='all'?null:cue.units?.[Number(unit)];
+  const selectionText=panel.querySelector('.selection-text'),selectionMode=panel.querySelector('.selection-mode'),selectionInfo=panel.querySelector('.selection-info');
+  const overview=createUnitOverview(overviewHost,{getCue,getPlan:getOverviewPlan,getTime,seek});
+  let cueId=null,unit='all',property='opacity',selectedTime=null,drag=null,selectionPlan=null; const expanded=new Set();
+  const getUnit=cue=>unit==='all'?null:unit==='selection'?selectionPlan?.units[selectionPlan.indices[0]]:cue.units?.[Number(unit)];
   function delayFor(cue,name) {const part=getUnit(cue);return part ? (part.delays?.[name] ?? part.delayMs ?? 0) : (cue.delays?.[name] ?? cue.defaultDelayMs ?? 0);}
   function framesFor(cue,name) {const frames=(getUnit(cue)?.keyframes ?? (unit==='all'?cue.keyframes:null))?.[name] ?? [];const delay=delayFor(cue,name);return frames.map(frame=>({...frame,time:frame.time+delay}));}
   function valueAt(cue,name,time) {
@@ -30,7 +38,7 @@ export function createEffectControls({parent,getCue,getBaseState,getTime,commitF
     return unit!=='all' && name==='position' ? [0,0] : state[name];
   }
   function commit(cue,name,frames) {
-    try {const delay=delayFor(cue,name);if(frames.some(frame=>frame.time<delay))throw new Error('키프레임은 이 단위의 시차보다 앞에 놓을 수 없습니다.');commitFrames(cue,unit,name,frames.map(frame=>({...frame,time:frame.time-delay}))); refresh(); return true;} catch(error) {notify(error.message);refresh();return false;}
+    try {const delay=delayFor(cue,name);if(frames.some(frame=>frame.time<delay))throw new Error('키프레임은 이 단위의 시차보다 앞에 놓을 수 없습니다.');const prior=framesFor(cue,name).map(frame=>({...frame,time:frame.time-delay}));commitFrames(cue,unit,name,frames.map(frame=>({...frame,time:frame.time-delay})),prior); refresh(); return true;} catch(error) {notify(error.message);refresh();return false;}
   }
   function addAt(cue,name,time) {
     const duration=cue.end-cue.start; time=Math.max(0,Math.min(duration,Math.round(time)));
@@ -44,8 +52,12 @@ export function createEffectControls({parent,getCue,getBaseState,getTime,commitF
   function refresh() {
     const cue=getCue(); panel.hidden=!cue; if(!cue)return;
     if(cueId!==cue.id){cueId=cue.id;unit='all';selectedTime=null;}
+    selectionPlan=getSelectionPlan(cue);
+    if(selectionText.value!==cue.text)selectionText.value=cue.text;
+    selectionInfo.textContent=selectionPlan ? `선택: ${cue.text.slice(selectionPlan.start,selectionPlan.end)} · ${selectionPlan.indices.length}개 단위. 첫 단위를 기준으로 변경한 키프레임만 함께 적용합니다.` : '글자를 선택하면 해당 부분에만 효과를 편집합니다.';
     const oldUnit=unit; unitChoice.replaceChildren();
     const whole=document.createElement('option');whole.value='all';whole.textContent='자막 전체';unitChoice.append(whole);
+    if(selectionPlan){const option=document.createElement('option');option.value='selection';option.textContent=`선택한 글자 (${selectionPlan.indices.length}개)`;unitChoice.append(option);}
     (cue.units ?? []).forEach((part,index)=>{if(!/\S/u.test(part.text))return;const option=document.createElement('option');option.value=String(index);option.textContent=`${index+1}: ${part.text}`;unitChoice.append(option);});
     if(![...unitChoice.options].some(option=>option.value===oldUnit))unit='all';
     unitChoice.value=unit; rows.replaceChildren();
@@ -56,13 +68,14 @@ export function createEffectControls({parent,getCue,getBaseState,getTime,commitF
       title.onclick=()=>{property=name;selectedTime=null;if(expanded.has(name))expanded.delete(name);else expanded.add(name);refresh();};
       const value=document.createElement('input');value.type=colors.has(name)?'color':'text';value.className='effect-value';value.setAttribute('aria-label',`${label} 값`);
       try {const at=property===name && selectedTime!==null?selectedTime:elapsed;value.value=showValue(valueAt(cue,name,at));}catch{value.value='';}
-      value.addEventListener('change',()=>{try{const newValue=parseValue(name,value.value),at=property===name && selectedTime!==null?selectedTime:Math.round(elapsed);const frames=structuredClone(framesFor(cue,name));const existing=frames.find(frame=>frame.time===at);if(existing)existing.value=newValue;else frames.push({time:at,value:newValue,easing:'linear'});frames.sort((a,b)=>a.time-b.time);property=name;selectedTime=at;commit(cue,name,frames);}catch(error){notify(error.message);refresh();}});
+      value.addEventListener('change',()=>{try{const newValue=parseValue(name,value.value),at=property===name && selectedTime!==null?selectedTime:Math.round(Math.max(0,Math.min(duration,getTime()-cue.start)));const frames=structuredClone(framesFor(cue,name));const existing=frames.find(frame=>frame.time===at);if(existing)existing.value=newValue;else frames.push({time:at,value:newValue,easing:'linear'});frames.sort((a,b)=>a.time-b.time);property=name;selectedTime=at;commit(cue,name,frames);}catch(error){notify(error.message);refresh();}});
       const lane=document.createElement('div');lane.className='effect-lane';lane.title='클릭하여 해당 시점에 키프레임 추가';
       const playhead=document.createElement('span');playhead.className='effect-playhead';playhead.style.left=`${elapsed/duration*100}%`;lane.append(playhead);
       lane.addEventListener('click',event=>{if(event.target!==lane)return;const rect=lane.getBoundingClientRect();if(rect.width)addAt(cue,name,(event.clientX-rect.left)/rect.width*duration);});
       for(const frame of framesFor(cue,name)) {
         const key=document.createElement('button');key.type='button';key.className=`effect-diamond${name===property && frame.time===selectedTime?' selected':''}`;key.style.left=`${Math.max(0,Math.min(100,frame.time/duration*100))}%`;key.title=`${(frame.time/1000).toFixed(3)}초 · ${showValue(frame.value)}`;key.setAttribute('aria-label',`${label} ${(frame.time/1000).toFixed(3)}초 키프레임`);
         key.addEventListener('pointerdown',event=>{if(event.button!==0)return;event.preventDefault();event.stopPropagation();property=name;selectedTime=frame.time;drag={cue,name,oldTime:frame.time,newTime:frame.time,lane,key,pointer:event.pointerId};key.setPointerCapture(event.pointerId);});
+        key.addEventListener('keydown',event=>{if(event.key!=='Delete')return;event.preventDefault();event.stopPropagation();property=name;selectedTime=null;commit(cue,name,structuredClone(framesFor(cue,name)).filter(item=>item.time!==frame.time));});
         key.addEventListener('pointermove',event=>{if(!drag || drag.key!==key || drag.pointer!==event.pointerId)return;const rect=lane.getBoundingClientRect();if(!rect.width)return;drag.newTime=Math.round(Math.max(0,Math.min(duration,(event.clientX-rect.left)/rect.width*duration)));key.style.left=`${drag.newTime/duration*100}%`;});
         const finish=(event,cancelled)=>{if(!drag || drag.key!==key || drag.pointer!==event.pointerId)return;const current=drag;drag=null;if(cancelled){refresh();return;}const frames=structuredClone(framesFor(cue,name));if(current.newTime!==current.oldTime && frames.some(item=>item.time===current.newTime)){notify('같은 시각에 다른 키프레임이 있습니다.');refresh();return;}const chosen=frames.find(item=>item.time===current.oldTime);if(chosen)chosen.time=current.newTime;frames.sort((a,b)=>a.time-b.time);selectedTime=current.newTime;if(current.newTime===current.oldTime){seek(cue.start+selectedTime);refresh();}else if(commit(cue,name,frames))seek(cue.start+selectedTime);};
         key.addEventListener('pointerup',event=>finish(event,false));key.addEventListener('pointercancel',event=>finish(event,true));lane.append(key);
@@ -87,11 +100,19 @@ export function createEffectControls({parent,getCue,getBaseState,getTime,commitF
     status.textContent=selectedTime===null?'속성 행을 선택하세요.':`${properties.find(item=>item[0]===property)?.[1]} · ${(selectedTime/1000).toFixed(3)}초`;
     const disabled=!isEditable(cue);for(const control of panel.querySelectorAll('button,input,select'))control.disabled=disabled;
     if(disabled)status.textContent='이 원본 구조는 효과 편집을 지원하지 않습니다.';
+    overview.refresh();
   }
+  function captureSelection() {const cue=getCue();if(!cue || selectionText.selectionStart===selectionText.selectionEnd)return;try{setTextSelection(cue,selectionText.selectionStart,selectionText.selectionEnd,selectionMode.value);unit='selection';selectedTime=null;refresh();}catch(error){notify(error.message);}}
+  selectionText.addEventListener('select',captureSelection);
+  selectionMode.addEventListener('change',captureSelection);
+  panel.querySelector('.selection-clear').onclick=()=>{setTextSelection(null);selectionText.setSelectionRange(selectionText.selectionEnd,selectionText.selectionEnd);unit='all';selectedTime=null;refresh();};
+  function switchTab(showOverview){editor.hidden=showOverview;overviewHost.hidden=!showOverview;panel.querySelector('.effect-tab').classList.toggle('active',!showOverview);panel.querySelector('.units-tab').classList.toggle('active',showOverview);if(showOverview)overview.refresh();}
+  panel.querySelector('.effect-tab').onclick=()=>switchTab(false);panel.querySelector('.units-tab').onclick=()=>switchTab(true);
   unitChoice.onchange=()=>{unit=unitChoice.value;selectedTime=null;refresh();};
   panel.querySelector('.unit-settings').onclick=openUnitSettings;
   panel.querySelector('.key-add').onclick=()=>{const cue=getCue();if(cue)addAt(cue,property,getTime()-cue.start);};
   panel.querySelector('.key-delete').onclick=()=>{const cue=getCue();if(!cue || selectedTime===null)return;const frames=structuredClone(framesFor(cue,property)).filter(frame=>frame.time!==selectedTime);selectedTime=null;commit(cue,property,frames);};
-  function updatePlayhead() {const cue=getCue();if(!cue)return;const duration=cue.end-cue.start,percent=Math.max(0,Math.min(100,(getTime()-cue.start)/duration*100));for(const line of rows.querySelectorAll('.effect-playhead'))line.style.left=`${percent}%`;}
-  return {refresh,updatePlayhead};
+  function updatePlayhead() {const cue=getCue();if(!cue)return;const duration=cue.end-cue.start,percent=Math.max(0,Math.min(100,(getTime()-cue.start)/duration*100));for(const line of rows.querySelectorAll('.effect-playhead'))line.style.left=`${percent}%`;overview.updatePlayhead();}
+  function selectRange(cue,start,end) {if(!cue || start===end)return;setTextSelection(cue,start,end,selectionMode.value);unit='selection';selectedTime=null;refresh();selectionText.setSelectionRange(start,end);}
+  return {refresh,updatePlayhead,selectRange,getTarget:()=>unit};
 }

@@ -15,8 +15,8 @@ const files = new Map([
   ['/path-editor.js', ['web/path-editor.js', 'text/javascript; charset=utf-8']],
   ['/bezier-editor.js', ['web/bezier-editor.js', 'text/javascript; charset=utf-8']],
   ['/compare.js', ['web/compare.js', 'text/javascript; charset=utf-8']],
-  ...['effect-controls.js','i18n.js','locale-ko.js','wave-stream.js','mp4box.all.mjs','rolldown-runtime-w6R9maHv.mjs','styp-9TIZZDLN.mjs'].map(name=>[`/${name}`,[`web/${name}`,'text/javascript; charset=utf-8']]),
-  ...['ytt-document.js', 'ytt-preserve.js', 'ytt-export.js', 'ytt-merge.js', 'ytt-style-edit.js', 'ytt-preview.js', 'subtitle-import.js', 'effects.js', 'animated-ytt.js', 'project.js', 'unit-effects.js', 'unit-layout.js', 'presets.js', 'timeline.js', 'history.js', 'ass-style.js']
+  ...['effect-controls.js','unit-overview.js','i18n.js','locale-ko.js','wave-stream.js','mp4box.all.mjs','rolldown-runtime-w6R9maHv.mjs','styp-9TIZZDLN.mjs'].map(name=>[`/${name}`,[`web/${name}`,'text/javascript; charset=utf-8']]),
+  ...['ytt-document.js', 'ytt-preserve.js', 'ytt-export.js', 'ytt-merge.js', 'ytt-style-edit.js', 'ytt-preview.js', 'subtitle-import.js', 'effects.js', 'animated-ytt.js', 'project.js', 'unit-effects.js', 'text-selection.js', 'unit-layout.js', 'presets.js', 'timeline.js', 'history.js', 'ass-style.js']
     .map(name => [`/src/${name}`, [`src/${name}`, 'text/javascript; charset=utf-8']]),
 ]);
 

@@ -6,58 +6,2654 @@
       "name": "트랙 1",
       "cues": [
         {
-          "id": 1,
-          "start": 2931,
-          "end": 4931,
-          "text": "테스트",
+          "id": 2,
+          "start": 7396,
+          "end": 9225,
+          "text": "용법, 용량 따윈 무시",
           "style": null,
           "layer": 0,
-          "motionPath": {
-            "start": 0,
-            "end": 2000,
-            "points": [
-              [
-                0,
-                66.56867906306796
-              ],
-              [
-                47.46521958604689,
-                78.92204592507495
-              ],
-              [
-                60,
-                20
-              ],
-              [
-                100,
-                32.169263805182915
-              ]
-            ],
-            "easing": "linear"
+          "appearance": {
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150,
+            "anchor": 7
           },
+          "units": [
+            {
+              "text": "용법,",
+              "delayMs": 0,
+              "delays": {
+                "opacity": 0
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": [
+                      0,
+                      1,
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "time": 308,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " 용량",
+              "delayMs": 500,
+              "delays": {
+                "opacity": 500
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": [
+                      0,
+                      1,
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "time": 308,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " 따윈",
+              "delayMs": 1000,
+              "delays": {
+                "opacity": 1000
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": [
+                      0,
+                      1,
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "time": 308,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " 무시",
+              "delayMs": 1500,
+              "delays": {
+                "opacity": 1500
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": [
+                      0,
+                      1,
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "time": 308,
+                    "value": 254
+                  }
+                ]
+              }
+            }
+          ],
           "keyframes": {
-            "opacity": [
+            "position": [
               {
-                "time": 329,
-                "value": 0,
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
                 "easing": "linear"
               },
               {
-                "time": 1202,
-                "value": 100,
+                "time": 1808,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "unitPlan": {
+            "mode": "custom",
+            "boundaries": [
+              3,
+              6,
+              9
+            ],
+            "intervalMs": 500,
+            "direction": "forward"
+          }
+        },
+        {
+          "id": 3,
+          "start": 9225,
+          "end": 10954,
+          "text": "합법  DOPING TIME",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
                 "easing": "linear"
+              },
+              {
+                "time": 2219,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "units": [
+            {
+              "text": "합법  DOPING"
+            },
+            {
+              "text": " TIME",
+              "keyframes": {
+                "size": [
+                  {
+                    "time": 1187,
+                    "value": 150,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1196,
+                    "value": 300,
+                    "easing": "linear"
+                  }
+                ],
+                "color": [
+                  {
+                    "time": 1178,
+                    "value": "#FEFEFE",
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1192,
+                    "value": "#000000",
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "unitPlan": null
+        },
+        {
+          "id": 6,
+          "start": 10954,
+          "end": 12742,
+          "text": "몸은 시체여도 뇌는",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 1756,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "units": [
+            {
+              "text": "몸은 시체"
+            },
+            {
+              "text": "여도 ",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 742,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 746,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            },
+            {
+              "text": "뇌는",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 1143,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1154,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "unitPlan": null
+        },
+        {
+          "id": 9,
+          "start": 12742,
+          "end": 14149,
+          "text": "HAPPY",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1000,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  -40,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 111,
+                "value": [
+                  25,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 1322,
+                "value": [
+                  25,
+                  35
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 10,
+          "start": 13025,
+          "end": 14157,
+          "text": "HAPPY",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1000,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  140,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 156,
+                "value": [
+                  75,
+                  35
+                ],
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 11,
+          "start": 13600,
+          "end": 14157,
+          "text": "HAPPY",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1000,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  25,
+                  70
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 113,
+                "value": [
+                  25,
+                  70
+                ],
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 15,
+          "start": 13853,
+          "end": 14149,
+          "text": "DANCE",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1000,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  75,
+                  70
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 296,
+                "value": [
+                  75,
+                  70
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 16,
+          "start": 14533,
+          "end": 16242,
+          "text": "「잠깐만 쉬자」 라고",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150,
+            "anchor": 7
+          },
+          "units": [
+            {
+              "text": "「잠깐만 쉬자」 "
+            },
+            {
+              "text": "라고",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 1025,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1054,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 1471,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "unitPlan": null
+        },
+        {
+          "id": 17,
+          "start": 16242,
+          "end": 18703,
+          "text": "끝날 리는 없는 거잖아",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 18,
+          "start": 21743,
+          "end": 28589,
+          "text": "WARNING?",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  25
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3655,
+                "value": [
+                  97,
+                  25
+                ]
               }
             ],
             "color": [
               {
-                "time": 343,
-                "value": "#FEFEFE",
+                "time": 223,
+                "value": "#7A7829",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 2889,
+                "value": "#272574",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
                 "easing": "linear"
               },
               {
-                "time": 1573,
-                "value": "#FF0000",
+                "time": 607,
+                "value": 254,
                 "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 20,
+          "start": 22807,
+          "end": 28589,
+          "text": "DON'T WORRY.",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#231e73",
+            "color": "#6e3030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 200,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2591,
+                "value": [
+                  97,
+                  35
+                ]
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 464,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 22,
+          "start": 25580,
+          "end": 28589,
+          "text": "WARNING?",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  55
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3009,
+                "value": [
+                  97,
+                  55
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 223,
+                "value": "#7A7829",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 2889,
+                "value": "#272574",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 607,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 24,
+          "start": 26446,
+          "end": 28589,
+          "text": "DON'T WORRY.",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#231e73",
+            "color": "#6e3030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 200,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2143,
+                "value": [
+                  97,
+                  65
+                ]
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 464,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 26,
+          "start": 28973,
+          "end": 34058,
+          "text": "WARNING?",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  25
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3655,
+                "value": [
+                  97,
+                  25
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 223,
+                "value": "#7A7829",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 1162,
+                "value": "#5365B9",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 607,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 27,
+          "start": 30037,
+          "end": 34058,
+          "text": "DON'T WORRY.",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#231e73",
+            "color": "#6e3030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 200,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2591,
+                "value": [
+                  97,
+                  35
+                ]
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 464,
+                "value": 254,
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 2765,
+                "value": "#6871CC",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 31,
+          "start": 34266,
+          "end": 35610,
+          "text": "NOPE,",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#823030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  30
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  97,
+                  30
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 0,
+                "value": "#020000",
+                "easing": "linear"
+              },
+              {
+                "time": 95,
+                "value": "#190F00",
+                "easing": "linear"
+              },
+              {
+                "time": 235,
+                "value": "#823030",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 33,
+          "start": 34561,
+          "end": 35610,
+          "text": "TOO",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 8,
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#813030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  96,
+                  55
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  96,
+                  55
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 35,
+          "start": 35015,
+          "end": 35610,
+          "text": "LATE",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 8,
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#813030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  96,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  96,
+                  80
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 36,
+          "start": 35875,
+          "end": 36799,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#437a71",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 38,
+          "start": 36799,
+          "end": 39218,
+          "text": "이제 멈출 수 없어",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 39,
+          "start": 39218,
+          "end": 40252,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#7c1613",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 41,
+          "start": 40252,
+          "end": 42806,
+          "text": "설탕과는 비교도 안돼",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 42,
+          "start": 42967,
+          "end": 44069,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#787f1a",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 43,
+          "start": 44069,
+          "end": 47275,
+          "text": "좀 더, 재가 될 때까지 HIGH",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 45,
+          "start": 50051,
+          "end": 53667,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#437a71",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 800,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  50
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3616,
+                "value": [
+                  2,
+                  50
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 46,
+          "start": 51071,
+          "end": 53667,
+          "text": "이제 멈출 수 없어",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  2,
+                  65
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 47,
+          "start": 53667,
+          "end": 57251,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#7c1613",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 850,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  50
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3584,
+                "value": [
+                  2,
+                  50
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 49,
+          "start": 54504,
+          "end": 57251,
+          "text": "설탕과는 비교도 안돼",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2747,
+                "value": [
+                  2,
+                  65
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 50,
+          "start": 57251,
+          "end": 61358,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#787f1a",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 850,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  50
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 1102,
+                "value": [
+                  2,
+                  50
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 51,
+          "start": 57941,
+          "end": 61358,
+          "text": "좀 더,",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  2,
+                  65
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 52,
+          "start": 58805,
+          "end": 61358,
+          "text": "재가 될 때까지 HIGH",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  2,
+                  80
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 54,
+          "start": 78572,
+          "end": 80889,
+          "text": "HOLY BAD MORNING",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 7
+          },
+          "units": [
+            {
+              "text": "HOLY "
+            },
+            {
+              "text": "BAD MORNING",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 1144,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1966,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 5085,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 1499,
+                "value": "#457DA1",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 1663,
+                "value": "#3A2F06",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 607,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          },
+          "unitPlan": null
+        },
+        {
+          "id": 55,
+          "start": 80889,
+          "end": 81691,
+          "text": "미쳐버려",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 57,
+          "start": 82220,
+          "end": 84410,
+          "text": "HOLY BAD MORNING",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 7
+          },
+          "units": [
+            {
+              "text": "HOLY "
+            },
+            {
+              "text": "BAD MORNING",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 1144,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1966,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 5085,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 1499,
+                "value": "#680E08",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 1663,
+                "value": "#3A2F06",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 607,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          },
+          "unitPlan": null
+        },
+        {
+          "id": 59,
+          "start": 84410,
+          "end": 85762,
+          "text": "알아차려도",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 61,
+          "start": 85887,
+          "end": 88077,
+          "text": "HOLY BAD MORNING",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#5b4572",
+            "color": "#6a5786",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 300,
+            "anchor": 7
+          },
+          "units": [
+            {
+              "text": "HOLY "
+            },
+            {
+              "text": "BAD MORNING",
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 1144,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 1857,
+                    "value": 254,
+                    "easing": "linear"
+                  }
+                ]
+              }
+            }
+          ],
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 5085,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 1499,
+                "value": "#2A5556",
+                "easing": "linear"
+              }
+            ],
+            "edgeColor": [
+              {
+                "time": 1663,
+                "value": "#3A2F06",
+                "easing": "linear"
+              }
+            ],
+            "opacity": [
+              {
+                "time": 0,
+                "value": 0,
+                "easing": "linear"
+              },
+              {
+                "time": 607,
+                "value": 254,
+                "easing": "linear"
+              }
+            ]
+          },
+          "unitPlan": null
+        },
+        {
+          "id": 66,
+          "start": 91282,
+          "end": 92702,
+          "text": "NOPE,",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#823030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  97,
+                  30
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  97,
+                  30
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 1005,
+                "value": "#AE6122",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 68,
+          "start": 91653,
+          "end": 92702,
+          "text": "TOO",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 8,
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#813030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  96,
+                  55
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  96,
+                  55
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 634,
+                "value": "#AF6122",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 70,
+          "start": 92107,
+          "end": 92702,
+          "text": "LATE",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 8,
+            "font": 2,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#813030",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 1300
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  96,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  96,
+                  80
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 0,
+                "value": "#B06122",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 71,
+          "start": 92845,
+          "end": 93769,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#437a71",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 73,
+          "start": 93769,
+          "end": 96374,
+          "text": "이제 멈출 수 없어",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 75,
+          "start": 96374,
+          "end": 97408,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#8b3e7f",
+            "color": "#7c1613",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 552,
+                "value": "#DD508E",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 76,
+          "start": 97416,
+          "end": 99970,
+          "text": "설탕과는 비교도 안돼",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#c354c0",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 77,
+          "start": 100069,
+          "end": 100866,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 1,
+            "edgeColor": "#000000",
+            "color": "#787f1a",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 250,
+            "anchor": 7
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 56,
+                "value": "#222428",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 78,
+          "start": 100866,
+          "end": 104377,
+          "text": "좀 더, 재가 될 때까지 HIGH",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ],
+            "color": [
+              {
+                "time": 1102,
+                "value": "#A39F9F",
+                "easing": "linear"
+              }
+            ]
+          }
+        },
+        {
+          "id": 80,
+          "start": 107182,
+          "end": 110501,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#c4bb9a",
+            "color": "#610e0e",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 800,
+            "anchor": 8
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  98,
+                  35
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3616,
+                "value": [
+                  98,
+                  35
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 81,
+          "start": 107939,
+          "end": 110501,
+          "text": "이제 멈출 수 없어",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 8,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#a18e73",
+            "color": "#610f0f",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 400
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  98,
+                  85
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  98,
+                  85
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 82,
+          "start": 110501,
+          "end": 113713,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#ddab45",
+            "color": "#7c1613",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 850,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  50
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 3584,
+                "value": [
+                  2,
+                  50
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 83,
+          "start": 111338,
+          "end": 113713,
+          "text": "설탕과는 비교도 안돼",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#d58430",
+            "color": "#bb3d18",
+            "opacity": 254,
+            "backgroundColor": "#c07128",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2747,
+                "value": [
+                  2,
+                  65
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 84,
+          "start": 113713,
+          "end": 118353,
+          "text": "BRAIN ROT",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 2,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#d17573",
+            "color": "#776381",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 850,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  50
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 1102,
+                "value": [
+                  2,
+                  50
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 85,
+          "start": 114783,
+          "end": 118353,
+          "text": "좀 더,",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#db7c75",
+            "color": "#998497",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  65
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  2,
+                  65
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 88,
+          "start": 115699,
+          "end": 118353,
+          "text": "재가 될 때까지 HIGH",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "anchor": 6,
+            "font": 4,
+            "bold": true,
+            "edgeType": 4,
+            "edgeColor": "#cd6c69",
+            "color": "#998497",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 600
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  2,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2596,
+                "value": [
+                  2,
+                  80
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 89,
+          "start": 120588,
+          "end": 125221,
+          "text": "SUBTITLES",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 4,
+            "bold": false,
+            "edgeType": 1,
+            "edgeColor": "#52050d",
+            "color": "#cbc8c8",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 3,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  56,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 4633,
+                "value": [
+                  56,
+                  80
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 90,
+          "start": 120588,
+          "end": 125221,
+          "text": "AREA01",
+          "style": null,
+          "layer": 0,
+          "appearance": {
+            "font": 4,
+            "bold": false,
+            "edgeType": 1,
+            "edgeColor": "#52050d",
+            "color": "#cbc8c8",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 3,
+            "anchor": 6
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  80,
+                  80
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 4633,
+                "value": [
+                  80,
+                  80
+                ]
               }
             ]
           }
@@ -66,10 +2662,458 @@
     },
     {
       "name": "트랙 2",
-      "cues": []
+      "cues": [
+        {
+          "id": 21,
+          "start": 23985,
+          "end": 25128,
+          "text": "빠져들고",
+          "style": null,
+          "layer": 1,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 25,
+          "start": 27497,
+          "end": 28581,
+          "text": "휩쓸려가고",
+          "style": null,
+          "layer": 1,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 150
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": 29,
+          "start": 31125,
+          "end": 34050,
+          "text": "벗어날 수 없어",
+          "style": null,
+          "layer": 1,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 200
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "units": [
+            {
+              "text": "벗",
+              "delayMs": 0,
+              "delays": {
+                "opacity": 0
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "어",
+              "delayMs": 150,
+              "delays": {
+                "opacity": 170
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "날",
+              "delayMs": 300,
+              "delays": {
+                "opacity": 340
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " ",
+              "delayMs": 0,
+              "delays": {},
+              "keyframes": {}
+            },
+            {
+              "text": "수",
+              "delayMs": 450,
+              "delays": {
+                "opacity": 510
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " ",
+              "delayMs": 0,
+              "delays": {},
+              "keyframes": {}
+            },
+            {
+              "text": "없",
+              "delayMs": 600,
+              "delays": {
+                "opacity": 680
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "어",
+              "delayMs": 750,
+              "delays": {
+                "opacity": 850
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            }
+          ],
+          "unitPlan": {
+            "mode": "character",
+            "boundaries": [],
+            "intervalMs": 170,
+            "direction": "forward"
+          }
+        },
+        {
+          "id": 64,
+          "start": 88077,
+          "end": 91282,
+          "text": "벗어날 수 없어",
+          "style": null,
+          "layer": 1,
+          "appearance": {
+            "anchor": 7,
+            "font": 4,
+            "bold": true,
+            "edgeType": 0,
+            "edgeColor": "#000000",
+            "color": "#fefefe",
+            "opacity": 254,
+            "backgroundColor": "#080808",
+            "backgroundOpacity": 0,
+            "size": 200
+          },
+          "keyframes": {
+            "position": [
+              {
+                "time": 0,
+                "value": [
+                  50,
+                  95
+                ],
+                "easing": "linear"
+              },
+              {
+                "time": 2000,
+                "value": [
+                  50,
+                  95
+                ]
+              }
+            ]
+          },
+          "units": [
+            {
+              "text": "벗",
+              "delayMs": 0,
+              "delays": {
+                "opacity": 0
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "어",
+              "delayMs": 150,
+              "delays": {
+                "opacity": 170
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "날",
+              "delayMs": 300,
+              "delays": {
+                "opacity": 340
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " ",
+              "delayMs": 0,
+              "delays": {},
+              "keyframes": {}
+            },
+            {
+              "text": "수",
+              "delayMs": 450,
+              "delays": {
+                "opacity": 510
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": " ",
+              "delayMs": 0,
+              "delays": {},
+              "keyframes": {}
+            },
+            {
+              "text": "없",
+              "delayMs": 600,
+              "delays": {
+                "opacity": 680
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            },
+            {
+              "text": "어",
+              "delayMs": 750,
+              "delays": {
+                "opacity": 850
+              },
+              "keyframes": {
+                "opacity": [
+                  {
+                    "time": 0,
+                    "value": 0,
+                    "easing": "linear"
+                  },
+                  {
+                    "time": 334,
+                    "value": 254
+                  }
+                ]
+              }
+            }
+          ],
+          "unitPlan": {
+            "mode": "character",
+            "boundaries": [],
+            "intervalMs": 170,
+            "direction": "forward"
+          }
+        }
+      ]
+    },
+    {
+      "name": "트랙 3",
+      "cues": [],
+      "hidden": false
+    },
+    {
+      "name": "트랙 4",
+      "cues": [],
+      "hidden": false,
+      "locked": false
     }
   ],
   "originalYtt": null,
-  "videoName": "에컴8 My blue sky home 대사.mp4",
-  "quality": "high"
+  "videoName": "터틀 Tokyo Manaka.mp4",
+  "quality": "optimized"
 }
